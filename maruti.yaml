@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: maruti
+  labels:
+   app: maruti:pod
+spec:
+ containers:
+    - name: maruti-container2
+     image: nginx
+     ports: 
+       - containerPort: 80
+...
+
+apiVersion: v1
+kind: service
+metadata:
+  name: maruti-service
+spec:
+   selector:
+    app: maruti-pod
+  ports:
+  -protocol: TCP
+   port: 80
+    targetport: 80
+    type: NodePort
+
