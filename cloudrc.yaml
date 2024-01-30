@@ -1,13 +1,65 @@
 ---
-apiVersion:v1
+apiVersion: v1
 kind: namespace
 metadata:
   name: test
-  ...
+...
 
-  ---
-  apiVersion: v1
-  kind: ReplicationController
-  metadate:
-    name: -my-rc
-   labels:
+---
+apiVersion: v1
+ metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-container
+          image: httpd
+          ports:
+            - containerPort: 80
+kind: ReplicationController
+metadate:
+  name: -my-rc
+  labels: 
+    app: maruti-app
+  namespace: test
+spec:
+  template:
+   metadata:
+      labels:
+        app: maruti-app
+    spec:
+      containers:
+        - name: my-container
+          image: httpd
+          ports:
+            - containerPort: 80
+  selector:
+    app: maruti-app
+  replicas: 4
+...
+
+---
+apiVersion: v1
+kind: service
+metadata:
+ name: maruti-srv
+namespace: test
+spec:
+  ports:
+  -name: maruti
+    protocol: TCP
+    port: 80
+    targetport: 80
+  selector:
+   app: maruti-app
+  type: NordPort
+...
+
+
+
+
+
+
+
+     
+    
