@@ -1,0 +1,38 @@
+---
+apivesion: apps/v1
+kind: Deployment
+metadata:
+  name: new-deployment
+  label:
+    app: new-app
+spec:
+  templete:
+    metadata:
+     lables:
+       app: new-app
+    spec:
+     container:
+       -name: new-container
+        image: httpd
+         ports:
+           -containerport: 80
+ replicas: 3
+ selector:
+   matchlabels:
+     app: new-app
+  strategy:
+   type: rollingupdate
+...
+---
+  apiversion: v1
+  kind: service
+  metadata:
+  name: my-svc
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: new-app
+...
