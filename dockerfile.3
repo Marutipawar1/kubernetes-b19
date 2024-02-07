@@ -1,4 +1,0 @@
-FROM httpd
-RUN mkdir /var/www/html/laptop
-RUN echo  "hello laptop" /var/www/html/laptop/index.html
-CMD [ "httpd","-DFOREGROUND" ]
